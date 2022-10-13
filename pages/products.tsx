@@ -12,8 +12,7 @@ const ProductPage = ({data}: InferGetStaticPropsType<typeof getStaticProps>) => 
                 thumbnailUrl: product.image,
                 thumbnailAlt: product.title,
                 rating: product.rating.rate
-            }}>
-            </Product>
+            }}/>
         </li>
     })}
   </ul>;
