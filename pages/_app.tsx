@@ -1,13 +1,18 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <div>
-    {/* <p className="text-5xl font-bold text-center  text-red-500 mt-7 border-8 rounded-3xl
-     border-green-700 shadow-lg shadow-pink-400">Hej</p> */}
-    <Component {...pageProps} />
-  </div>
+  return (
+    <div>
+      <QueryClientProvider client={client}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </div>
+  );
 }
 
-export default MyApp
+export default MyApp;

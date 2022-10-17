@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from "next";
 import { useQuery } from "react-query";
-import { Product } from "../components/Product";
+import { ProductDetails } from "../components/Product";
 
 const getProducts = async () => {
   const res = await fetch(`https://fakestoreapi.com/products/`);
@@ -16,7 +16,7 @@ const ProductCSRPage = () => {
   }
 
   if(!data || error){
-    <div>Coś poszło nie tak</div>
+    return <div>Coś poszło nie tak</div>
   }
 
   return (
@@ -24,8 +24,9 @@ const ProductCSRPage = () => {
       {data.map((product) => {
         return (
           <li key={product.id} className="shadow-xl border-2">
-            <Product
+            <ProductDetails
               data={{
+                id: product.id,
                 title: product.title,
                 description: product.description,
                 thumbnailUrl: product.image,
