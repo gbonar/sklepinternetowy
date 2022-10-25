@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { ProductDetails } from "../components/Product";
 
 const getProducts = async () => {
-  const res = await fetch(`https://fakestoreapi.com/products/`);
+  const res = await fetch(`https://naszsklep-api.vercel.app/api/products/`);
   const data: StoreApiResponse[] = await res.json();
   return data;
 };
@@ -32,6 +32,7 @@ const ProductCSRPage = () => {
                 thumbnailUrl: product.image,
                 thumbnailAlt: product.title,
                 rating: product.rating.rate,
+                longDescription: product.longDescription
               }}
             />
           </li>
@@ -50,6 +51,7 @@ interface StoreApiResponse {
   description: string;
   category: string;
   image: string;
+  longDescription: string;
   rating: {
     rate: number;
     count: number;

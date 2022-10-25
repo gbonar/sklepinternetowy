@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Rating } from "./Rating";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
+import { ZaisteReactMarkdown } from "./ZaisteReactMarkdown";
+import { MarkdownResult } from "../utils";
 
 interface ProductDetails {
   id: number;
@@ -9,6 +12,7 @@ interface ProductDetails {
   thumbnailUrl: string;
   thumbnailAlt: string;
   rating: number;
+  longDescription: MarkdownResult;
 }
 
 interface ProductProps {
@@ -16,12 +20,39 @@ interface ProductProps {
 }
 
 export const ProductDetails = ({ data }: ProductProps) => {
-  const { thumbnailUrl, thumbnailAlt, title, description, rating} = data;
-  
+  const {
+    thumbnailUrl,
+    thumbnailAlt,
+    title,
+    description,
+    longDescription,
+    rating,
+  } = data;
+
   return (
     <>
-    <div className="bg-white p-4">
-      <Image
+      <NextSeo
+        title={data.title}
+        description={data.description}
+        canonical={`https://naszsklep-api.vercel.app/api/products/${data.id}`}
+        openGraph={{
+          url: `https://naszsklep-api.vercel.app/api/products/${data.id}`,
+          title: data.title,
+          description: data.description,
+          images: [
+            {
+              url: data.thumbnailUrl,
+              width: 800,
+              height: 600,
+              alt: data.thumbnailAlt,
+              type: "image/jpeg",
+            },
+          ],
+          site_name: "Nasz sklep",
+        }}
+      />
+      <div className="bg-white p-4">
+        <Image
           src={thumbnailUrl}
           alt={thumbnailAlt}
           layout="responsive"
@@ -29,14 +60,19 @@ export const ProductDetails = ({ data }: ProductProps) => {
           height={9}
           objectFit="contain"
         />
-        </div>
+      </div>
       <h2 className="p-4 text-3xl font-bold">{title}</h2>
       <p className="p-4">{description}</p>
+      <article className="p-4 prose lg:prose-xl">
+        <ZaisteReactMarkdown>{data.longDescription}</ZaisteReactMarkdown>
+      </article>
+
       <Rating rating={rating} />
-      
     </>
   );
 };
+
+
 
 interface ProductListItemProps {
   data: ProductListItem;

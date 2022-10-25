@@ -1,5 +1,6 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { Layout } from "../components/Layout";
 import { Main } from "../components/Main";
 import { ProductDetails } from "../components/Product";
 import ProductPage from "./products";
@@ -19,13 +20,7 @@ const DATA = {
 
 const Home = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <Main>
-         {<ProductDetails data={DATA}/>}
-      </Main>
-      <Footer />
-    </div>
+      <Main>{}</Main>
   );
 };
 
